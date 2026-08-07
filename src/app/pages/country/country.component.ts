@@ -18,6 +18,8 @@ export class CountryComponent implements OnInit {
   public totalEntries: number = 0;
   public totalMedals: number = 0;
   public totalAthletes: number = 0;
+  public years: number[] = [];
+  public medals: string[] = [];
   public error!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {
