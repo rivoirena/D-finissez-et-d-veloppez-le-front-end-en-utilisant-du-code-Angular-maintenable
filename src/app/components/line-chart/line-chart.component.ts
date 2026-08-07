@@ -17,11 +17,9 @@ export class LineChartComponent {
   constructor(private router: Router) {}
   
   ngOnChanges() {
-    // if (this.medals.length > 0) {
-    console.log('tst ' + this.years);
-    console.log('tst ' + this.medals);
+    if (this.medals.length > 0) {
           this.buildChart(this.years, this.medals);
-    // }
+    }
   }
 
   buildChart(years: number[], medals: string[]) {
