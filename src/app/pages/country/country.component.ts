@@ -34,12 +34,12 @@ export class CountryComponent implements OnInit {
           this.titlePage = selectedCountry?.country ?? '';
           const participations = selectedCountry?.participations.map((i: Participation) => i);
           this.totalEntries = participations?.length ?? 0;
-          const years = selectedCountry?.participations.map((i: Participation) => i.year) ?? [];
-          const medals = selectedCountry?.participations.map((i: Participation) => i.medalsCount.toString()) ?? [];
-          this.totalMedals = medals.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
+          this.years = selectedCountry?.participations.map((i: Participation) => i.year) ?? [];
+          this.medals = selectedCountry?.participations.map((i: Participation) => i.medalsCount.toString()) ?? [];
+          this.totalMedals = this.medals.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
           const nbAthletes = selectedCountry?.participations.map((i: Participation) => i.athleteCount.toString()) ?? []
           this.totalAthletes = nbAthletes.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
-          this.buildChart(years, medals);
+          // this.buildChart(years, medals);
         }
       },
       (error: HttpErrorResponse) => {
@@ -48,23 +48,23 @@ export class CountryComponent implements OnInit {
     );
   }
 
-  buildChart(years: number[], medals: string[]) {
-    const lineChart = new Chart("countryChart", {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: "medals",
-            data: medals,
-            backgroundColor: '#0b868f'
-          },
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-    });
-    this.lineChart = lineChart;
-  }
+  // buildChart(years: number[], medals: string[]) {
+  //   const lineChart = new Chart("countryChart", {
+  //     type: 'line',
+  //     data: {
+  //       labels: years,
+  //       datasets: [
+  //         {
+  //           label: "medals",
+  //           data: medals,
+  //           backgroundColor: '#0b868f'
+  //         },
+  //       ]
+  //     },
+  //     options: {
+  //       aspectRatio: 2.5
+  //     }
+  //   });
+  //   this.lineChart = lineChart;
+  // }
 }
