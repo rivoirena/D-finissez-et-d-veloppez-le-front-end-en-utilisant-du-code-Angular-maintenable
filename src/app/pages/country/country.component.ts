@@ -2,7 +2,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Olympic, Participation } from 'src/app/core/models/olympic';
+import { Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 
 
 @Component({
@@ -19,14 +20,14 @@ export class CountryComponent implements OnInit {
   public totalAthletes: number = 0;
   public error!: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {
   }
 
   ngOnInit() {
     let countryName: string | null = null
     this.route.paramMap.subscribe((param: ParamMap) => countryName = param.get('countryName'));
-    this.http.get<Olympic[]>(this.olympicUrl).pipe().subscribe(
-      (data) => {
+    this.olympicService.getOlympics().subscribe(
+      (data: Olympic[]) => {
         if (data && data.length > 0) {
           const selectedCountry = data.find((i: Olympic) => i.country === countryName);
           this.titlePage = selectedCountry?.country ?? '';

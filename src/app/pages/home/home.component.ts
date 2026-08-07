@@ -2,7 +2,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Olympic, Participation } from 'src/app/core/models/olympic';
+import { Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,11 @@ export class HomeComponent implements OnInit {
   public error!:string
   titlePage: string = "Medals per Country";
 
-  constructor(private router: Router, private http:HttpClient) { }
+  constructor(private router: Router, private olympicService: OlympicService) { }
 
   ngOnInit() {
-    this.http.get<Olympic[]>(this.olympicUrl).pipe().subscribe(
-      (data) => {
+    this.olympicService.getOlympics().subscribe(
+      (data: Olympic[]) => {
         console.log(`Liste des données : ${JSON.stringify(data)}`);
         if (data && data.length > 0) {
           this.totalJOs = Array.from(new Set(data.map((i: Olympic) => i.participations.map((f: Participation) => f.year)).flat())).length;
