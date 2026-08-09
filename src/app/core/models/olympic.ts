@@ -10,3 +10,7 @@ export interface Olympic {
     country: string,
     participations: Participation[]
 }
+export interface Metric {
+  label: string;
+  value: number | string;
+}

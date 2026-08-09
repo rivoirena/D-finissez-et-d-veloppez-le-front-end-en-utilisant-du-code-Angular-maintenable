@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Olympic, Participation } from 'src/app/core/models/olympic';
+import { Metric, Olympic, Participation } from 'src/app/core/models/olympic';
 
 
 @Component({
@@ -19,6 +19,11 @@ export class CountryComponent implements OnInit {
   public totalAthletes: number = 0;
   public years: number[] = [];
   public medals: string[] = [];
+  public metrics: Metric[] = [
+    { label: 'Number of entries', value: this.totalEntries },
+    { label: 'Total Number of medals', value: this.totalMedals },
+    { label: 'Total Number of athletes', value: this.totalAthletes }
+  ];
   public error!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
@@ -39,7 +44,12 @@ export class CountryComponent implements OnInit {
           this.totalMedals = this.medals.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
           const nbAthletes = selectedCountry?.participations.map((i: Participation) => i.athleteCount.toString()) ?? []
           this.totalAthletes = nbAthletes.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
-          // this.buildChart(years, medals);
+
+          this.metrics = [
+            { label: 'Number of entries', value: this.totalEntries },
+            { label: 'Total Number of medals', value: this.totalMedals },
+            { label: 'Total Number of athletes', value: this.totalAthletes }
+          ];
         }
       },
       (error: HttpErrorResponse) => {
