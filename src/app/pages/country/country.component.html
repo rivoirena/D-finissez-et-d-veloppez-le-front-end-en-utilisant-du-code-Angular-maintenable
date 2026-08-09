@@ -1,20 +1,7 @@
 <div>
   <div>
     <app-title [titlePage]="titlePage"></app-title>
-    <div class="split">
-      <div>
-        <p>Number of entries</p>
-        <p>{{ totalEntries }}</p>
-      </div>
-      <div>
-        <p>Total Number of medals</p>
-        <p>{{ totalMedals }}</p>
-      </div>
-      <div>
-        <p>Total Number of athletes</p>
-        <p>{{ totalAthletes }}</p>
-      </div>
-    </div>
+    <app-metrics [metrics]="metrics"></app-metrics>
   </div>
   <div class="chart-container wrapper-container">
     <div class="container">
