@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Metric } from 'src/app/core/models/olympic';
+import { Metric } from 'src/app/core/models/olympic.model';
 
 @Component({
   selector: 'app-metrics',

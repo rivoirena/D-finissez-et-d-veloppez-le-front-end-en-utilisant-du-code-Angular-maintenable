@@ -17,10 +17,7 @@ export class HomeComponent implements OnInit {
   public totalJOs: number = 0
   public countries: string[] = [];
   public sumOfAllMedalsYears: number[] = [];
-  public metrics: Metric[] = [
-    { label: 'Total Countries', value: this.totalCountries },
-    { label: 'Total Olympic Games', value: this.totalJOs }
-  ];
+  public metrics: Metric[] = [];
   public error!:string
   titlePage: string = "Medals per Country";
 
@@ -29,28 +26,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.olympicService.getOlympics().subscribe(
       (data: Olympic[]) => {
-        console.log(`Liste des données : ${JSON.stringify(data)}`);
         if (data && data.length > 0) {
-          this.totalJOs = Array.from(new Set(data.map((i: Olympic) => i.participations.map((f: Participation) => f.year)).flat())).length;
-          this.countries = data.map(i => i.country);
-          this.totalCountries = this.countries.length;
-
-          this.sumOfAllMedalsYears = data.map(i =>
-            i.participations.reduce(
-              (acc: number, participation: Participation) => acc + participation.medalsCount,
-              0
-            )
-          );
-
-          this.metrics = [
-            { label: 'Total Countries', value: this.totalCountries },
-            { label: 'Total Olympic Games', value: this.totalJOs }
-          ];
+          this.metrics = this.olympicService.getHomeMetrics(data);
+          this.countries = this.olympicService.getCountries(data);
+          this.sumOfAllMedalsYears = this.olympicService.getTotalMedalsByCountry(data);
         }
       },
-      (error:HttpErrorResponse) => {
-        console.log(`erreur : ${error}`);
-        this.error = error.message
+      (error: HttpErrorResponse) => {
+        this.error = error.message;
       }
     )
   }
