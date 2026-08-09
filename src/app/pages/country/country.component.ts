@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { Metric, Olympic, Participation } from 'src/app/core/models/olympic.model';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 
@@ -20,6 +20,11 @@ export class CountryComponent implements OnInit {
   public totalAthletes: number = 0;
   public years: number[] = [];
   public medals: string[] = [];
+  public metrics: Metric[] = [
+    { label: 'Number of entries', value: this.totalEntries },
+    { label: 'Total Number of medals', value: this.totalMedals },
+    { label: 'Total Number of athletes', value: this.totalAthletes }
+  ];
   public error!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {
@@ -35,12 +40,17 @@ export class CountryComponent implements OnInit {
           this.titlePage = selectedCountry?.country ?? '';
           const participations = selectedCountry?.participations.map((i: Participation) => i);
           this.totalEntries = participations?.length ?? 0;
-          const years = selectedCountry?.participations.map((i: Participation) => i.year) ?? [];
-          const medals = selectedCountry?.participations.map((i: Participation) => i.medalsCount.toString()) ?? [];
-          this.totalMedals = medals.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
+          this.years = selectedCountry?.participations.map((i: Participation) => i.year) ?? [];
+          this.medals = selectedCountry?.participations.map((i: Participation) => i.medalsCount.toString()) ?? [];
+          this.totalMedals = this.medals.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
           const nbAthletes = selectedCountry?.participations.map((i: Participation) => i.athleteCount.toString()) ?? []
           this.totalAthletes = nbAthletes.reduce((accumulator: number, item: string) => accumulator + parseInt(item), 0);
-          this.buildChart(years, medals);
+
+          this.metrics = [
+            { label: 'Number of entries', value: this.totalEntries },
+            { label: 'Total Number of medals', value: this.totalMedals },
+            { label: 'Total Number of athletes', value: this.totalAthletes }
+          ];
         }
       },
       (error: HttpErrorResponse) => {
@@ -49,23 +59,23 @@ export class CountryComponent implements OnInit {
     );
   }
 
-  buildChart(years: number[], medals: string[]) {
-    const lineChart = new Chart("countryChart", {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: "medals",
-            data: medals,
-            backgroundColor: '#0b868f'
-          },
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-    });
-    this.lineChart = lineChart;
-  }
+  // buildChart(years: number[], medals: string[]) {
+  //   const lineChart = new Chart("countryChart", {
+  //     type: 'line',
+  //     data: {
+  //       labels: years,
+  //       datasets: [
+  //         {
+  //           label: "medals",
+  //           data: medals,
+  //           backgroundColor: '#0b868f'
+  //         },
+  //       ]
+  //     },
+  //     options: {
+  //       aspectRatio: 2.5
+  //     }
+  //   });
+  //   this.lineChart = lineChart;
+  // }
 }

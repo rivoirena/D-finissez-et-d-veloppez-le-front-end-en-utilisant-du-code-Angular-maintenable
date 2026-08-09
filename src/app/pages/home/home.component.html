@@ -3,16 +3,7 @@
 <div>
   <div>
     <app-title [titlePage]="titlePage"></app-title>
-    <div class="split">
-      <div>
-        <p>Number of countries</p>
-        <p>{{ totalCountries }}</p>
-      </div>
-      <div>
-        <p>Number of JOs</p>
-        <p>{{ totalJOs }}</p>
-      </div>
-    </div>
+    <app-metrics [metrics]="metrics"></app-metrics>
   </div>
   <app-pie-chart [countries]="countries" [sumOfAllMedalsYears]="sumOfAllMedalsYears"></app-pie-chart>
 </div>
