@@ -12,19 +12,10 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./country.component.scss']
 })
 export class CountryComponent implements OnInit {
-  private olympicUrl = './assets/mock/olympic.json';
-  public lineChart!: Chart<"line", string[], number>;
   public titlePage: string = '';
-  public totalEntries: number = 0;
-  public totalMedals: number = 0;
-  public totalAthletes: number = 0;
   public years: number[] = [];
   public medals: number[] = [];
-  public metrics: Metric[] = [
-    { label: 'Number of entries', value: this.totalEntries },
-    { label: 'Total Number of medals', value: this.totalMedals },
-    { label: 'Total Number of athletes', value: this.totalAthletes }
-  ];
+  public metrics: Metric[] = [];
   public error!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {

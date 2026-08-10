@@ -11,10 +11,6 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  private olympicUrl = './assets/mock/olympic.json';
-  // public pieChart!: Chart<"pie", number[], string>;
-  public totalCountries: number = 0
-  public totalJOs: number = 0
   public countries: string[] = [];
   public sumOfAllMedalsYears: number[] = [];
   public metrics: Metric[] = [];
