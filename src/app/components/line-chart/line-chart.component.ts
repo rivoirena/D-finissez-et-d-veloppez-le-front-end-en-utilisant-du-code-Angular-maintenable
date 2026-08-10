@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   styleUrl: './line-chart.component.scss'
 })
 export class LineChartComponent {
-  public lineChart!: Chart<"line", string[], number>;
+  public lineChart!: Chart<"line", number[], number>;
   @Input() years: number[] = [];
-  @Input() medals: string[] = [];
+  @Input() medals: number[] = [];
 
   constructor(private router: Router) {}
   
@@ -22,7 +22,7 @@ export class LineChartComponent {
     }
   }
 
-  buildChart(years: number[], medals: string[]) {
+  buildChart(years: number[], medals: number[]) {
     const lineChart = new Chart("countryChart", {
       type: 'line',
       data: {

@@ -2,7 +2,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Metric, Olympic, Participation } from 'src/app/core/models/olympic';
+import { Metric, Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-home',
@@ -16,40 +17,23 @@ export class HomeComponent implements OnInit {
   public totalJOs: number = 0
   public countries: string[] = [];
   public sumOfAllMedalsYears: number[] = [];
-  public metrics: Metric[] = [
-    { label: 'Total Countries', value: this.totalCountries },
-    { label: 'Total Olympic Games', value: this.totalJOs }
-  ];
+  public metrics: Metric[] = [];
   public error!:string
   titlePage: string = "Medals per Country";
 
-  constructor(private router: Router, private http:HttpClient) { }
+  constructor(private router: Router, private olympicService: OlympicService) { }
 
   ngOnInit() {
-    this.http.get<Olympic[]>(this.olympicUrl).pipe().subscribe(
-      (data) => {
-        console.log(`Liste des données : ${JSON.stringify(data)}`);
+    this.olympicService.getOlympics().subscribe(
+      (data: Olympic[]) => {
         if (data && data.length > 0) {
-          this.totalJOs = Array.from(new Set(data.map((i: Olympic) => i.participations.map((f: Participation) => f.year)).flat())).length;
-          this.countries = data.map(i => i.country);
-          this.totalCountries = this.countries.length;
-
-          this.sumOfAllMedalsYears = data.map(i =>
-            i.participations.reduce(
-              (acc: number, participation: Participation) => acc + participation.medalsCount,
-              0
-            )
-          );
-
-          this.metrics = [
-            { label: 'Total Countries', value: this.totalCountries },
-            { label: 'Total Olympic Games', value: this.totalJOs }
-          ];
+          this.metrics = this.olympicService.getHomeMetrics(data);
+          this.countries = this.olympicService.getCountries(data);
+          this.sumOfAllMedalsYears = this.olympicService.getTotalMedalsByCountry(data);
         }
       },
-      (error:HttpErrorResponse) => {
-        console.log(`erreur : ${error}`);
-        this.error = error.message
+      (error: HttpErrorResponse) => {
+        this.error = error.message;
       }
     )
   }
