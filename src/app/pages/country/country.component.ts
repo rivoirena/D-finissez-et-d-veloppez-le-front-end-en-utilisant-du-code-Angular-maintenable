@@ -31,8 +31,7 @@ export class CountryComponent implements OnInit {
   }
 
   ngOnInit() {
-    let countryName: string | null = null
-    this.route.paramMap.subscribe((param: ParamMap) => countryName = param.get('countryName'));
+    const countryName = this.route.snapshot.paramMap.get('countryName');
     this.olympicService.getOlympics().subscribe(
       (data: Olympic[]) => {
         if (data && data.length > 0) {
