@@ -28,6 +28,7 @@ export class CountryComponent implements OnInit {
         if (data && data.length > 0) {
           const selectedCountry = this.olympicService.getCountry(data, countryName ?? '');
           if (!selectedCountry) {
+            this.router.navigate(['/']);
             return;
           }
           this.titlePage = selectedCountry?.country ?? '';
