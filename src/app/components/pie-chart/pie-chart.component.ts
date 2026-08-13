@@ -28,14 +28,39 @@ export class PieChartComponent {
       data: {
         labels: countries,
         datasets: [{
-          label: 'Medals',
+          label: '🏅',
           data: sumOfAllMedalsYears,
           backgroundColor: ['#0b868f', '#adc3de', '#7a3c53', '#8f6263', 'orange', '#94819d'],
           hoverOffset: 4
         }],
       },
       options: {
-        aspectRatio: 2.5,
+        plugins: {
+          tooltip: {
+            backgroundColor: '#0b868f',
+            titleColor: '#ffffff',
+            bodyColor: '#ffffff',
+            xAlign: 'center',
+            yAlign: 'bottom',
+            borderWidth: 1,
+            displayColors: false,
+            caretSize: 8,
+            caretPadding: 4,
+            cornerRadius: 8,
+
+            callbacks: {
+              title: (items) => {
+                return items[0].label;
+              },
+
+              label: (context) => {
+                return `🏅 ${context.raw}`;
+              }
+            }
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
         onClick: (e) => {
           if (e.native) {
             const points = pieChart.getElementsAtEventForMode(e.native, 'point', { intersect: true }, true)
