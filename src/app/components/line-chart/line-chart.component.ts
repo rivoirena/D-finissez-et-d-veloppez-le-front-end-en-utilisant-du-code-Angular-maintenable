@@ -36,7 +36,8 @@ export class LineChartComponent {
         ]
       },
       options: {
-        aspectRatio: 2.5
+        responsive: true,
+        maintainAspectRatio: false,
       }
     });
     this.lineChart = lineChart;

@@ -1,44 +1,76 @@
-/* You can add global styles to this file, and also import other style files */
-.heading {
-    flex-direction: column;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.dashboard {
+    width: min(100% - 40px, 1400px);
+    margin: 0 auto;
 }
 
 .center {
     display: flex;
     justify-content: center;
     margin: 5px;
+}
 
-    div {
-        background: #0b868f;
-        padding: 10px;
-        border-radius: 10px;
-        color: white;
-    }
+.center > div {
+    padding: 10px;
+    background: #0b868f;
+    border-radius: 10px;
+    color: white;
 }
 
 .split {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     gap: 20px;
     margin: 5px;
-
-    div {
-        padding: 10px;
-        border: solid #0b868f 1px;
-        border-radius: 10px;
-        color: gray;
-        margin: 0px;
-
-        p {
-            text-align: center;
-            margin: 0;
-        }
-
-        p:last-child {
-            font-weight: bold;
-            color: black;
-        }
-    }
+    flex-wrap: wrap;
 }
 
+.split > div {
+    padding: 10px;
+    margin: 0;
+    border: 2px solid #0b868f;
+    border-radius: 10px;
+    color: gray;
+}
+
+.split p {
+    margin: 0;
+    text-align: center;
+}
+
+.split p:last-child {
+    font-weight: bold;
+    color: black;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+
+@media (max-width: 767px) {
+    .dashboard {
+        width: calc(100% - 20px);
+    }
+
+    .split {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .split > div {
+        width: 100%;
+    }
+
+    .chart-container {
+        height: 350px;
+    }
+}
