@@ -38,6 +38,11 @@ export class LineChartComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        scales: {
+          y: {
+            grace: '10%'
+          }
+        }
       }
     });
     this.lineChart = lineChart;
