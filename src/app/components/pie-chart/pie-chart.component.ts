@@ -30,7 +30,7 @@ export class PieChartComponent {
         datasets: [{
           label: '🏅',
           data: sumOfAllMedalsYears,
-          backgroundColor: ['#0b868f', '#adc3de', '#7a3c53', '#8f6263', 'orange', '#94819d'],
+          backgroundColor: ['#783C50', '#915F64', '#B4C8E6', '#BEDCF0', '#967DA0', '#87A0D7'],
           hoverOffset: 4
         }],
       },
