@@ -20,17 +20,17 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private olympicService: OlympicService) { }
 
   ngOnInit() {
-    this.olympicService.getOlympics().subscribe(
-      (data: Olympic[]) => {
+    this.olympicService.getOlympics().subscribe({
+      next: (data: Olympic[]) => {
         if (data && data.length > 0) {
           this.metrics = this.olympicService.getHomeMetrics(data);
           this.countries = this.olympicService.getCountries(data);
           this.sumOfAllMedalsYears = this.olympicService.getTotalMedalsByCountry(data);
         }
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         this.error = error.message;
       }
-    )
+    });
   }
 }

@@ -23,8 +23,8 @@ export class CountryComponent implements OnInit {
 
   ngOnInit() {
     const countryName = this.route.snapshot.paramMap.get('countryName');
-    this.olympicService.getOlympics().subscribe(
-      (data: Olympic[]) => {
+    this.olympicService.getOlympics().subscribe({
+      next: (data: Olympic[]) => {
         if (data && data.length > 0) {
           const selectedCountry = this.olympicService.getCountry(data, countryName ?? '');
           if (!selectedCountry) {
@@ -38,9 +38,9 @@ export class CountryComponent implements OnInit {
 
         }
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         this.error = error.message
       }
-    );
+    });
   }
 }
