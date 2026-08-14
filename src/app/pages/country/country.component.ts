@@ -1,4 +1,3 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import Chart from 'chart.js/auto';
@@ -16,7 +15,9 @@ export class CountryComponent implements OnInit {
   public years: number[] = [];
   public medals: number[] = [];
   public metrics: Metric[] = [];
-  public error!: string;
+  public loading: boolean = true;
+  public error: boolean = false;
+  public errorMessage!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {
   }
@@ -25,21 +26,29 @@ export class CountryComponent implements OnInit {
     const countryName = this.route.snapshot.paramMap.get('countryName');
     this.olympicService.getOlympics().subscribe({
       next: (data: Olympic[]) => {
-        if (data && data.length > 0) {
-          const selectedCountry = this.olympicService.getCountry(data, countryName ?? '');
-          if (!selectedCountry) {
-            this.router.navigate(['not-found']);
-            return;
-          }
-          this.titlePage = selectedCountry?.country ?? '';
-          this.years = this.olympicService.getCountryYears(selectedCountry);
-          this.medals = this.olympicService.getCountryMedals(selectedCountry);
-          this.metrics = this.olympicService.getCountryMetrics(selectedCountry);
-
+        this.loading = false;
+        
+        if (!data || data.length === 0) {
+          this.error = true;
+          this.errorMessage = "Aucune donnée disponible pour le moment. Veuillez réessayer plus tard.";
+          return;
         }
+
+        const selectedCountry = this.olympicService.getCountry(data, countryName ?? '');
+        if (!selectedCountry) {
+          this.router.navigate(['not-found']);
+          return;
+        }
+
+        this.titlePage = selectedCountry?.country ?? '';
+        this.years = this.olympicService.getCountryYears(selectedCountry);
+        this.medals = this.olympicService.getCountryMedals(selectedCountry);
+        this.metrics = this.olympicService.getCountryMetrics(selectedCountry);
       },
-      error: (error: HttpErrorResponse) => {
-        this.error = error.message
+      error: () => {
+        this.loading = false;
+        this.error = true;
+        this.errorMessage = "Une erreur est survenue lors de la récupération des données. Veuillez réessayer plus tard.";
       }
     });
   }

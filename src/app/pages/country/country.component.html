@@ -1,12 +1,18 @@
-<div>
-  <app-title [titlePage]="titlePage" [metrics]="metrics"></app-title>
-  <div class="wrapper-container">
-    <div class="container">
-      <app-line-chart [years]="years" [medals]="medals"></app-line-chart>
-      <h2>Date</h2>
+@if (loading) {
+  <app-loading></app-loading>
+} @else if (error) {
+  <app-error-message [errorMessage]="errorMessage"></app-error-message>
+} @else {
+  <div>
+    <app-title [titlePage]="titlePage" [metrics]="metrics"></app-title>
+    <div class="wrapper-container">
+      <div class="container">
+        <app-line-chart [years]="years" [medals]="medals"></app-line-chart>
+        <h2>Date</h2>
+      </div>
+    </div>
+    <div class="center">
+      <a routerLink="/">Go back</a>
     </div>
   </div>
-  <div class="center">
-    <a routerLink="/">Go back</a>
-  </div>
-</div>
+}
