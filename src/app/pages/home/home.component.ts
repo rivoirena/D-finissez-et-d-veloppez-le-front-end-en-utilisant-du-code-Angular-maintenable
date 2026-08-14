@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import Chart from 'chart.js/auto';
 import { Metric, Olympic, Country } from 'src/app/core/models/olympic.model';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -16,7 +15,7 @@ export class HomeComponent implements OnInit {
   public loading: boolean = true;
   public error: boolean = false;
   public errorMessage!: string;
-  titlePage: string = "Medals per Country";
+  public titlePage: string = "Medals per Country";
 
   constructor(private router: Router, private olympicService: OlympicService) { }
 
