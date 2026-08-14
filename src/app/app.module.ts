@@ -10,10 +10,12 @@ import { TitleComponent } from './components/title/title.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, CountryComponent],
-  imports: [BrowserModule, AppRoutingModule, TitleComponent, PieChartComponent, LineChartComponent, MetricsComponent],
+  imports: [BrowserModule, AppRoutingModule, TitleComponent, PieChartComponent, LineChartComponent, MetricsComponent, ErrorMessageComponent, LoadingComponent],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
 })

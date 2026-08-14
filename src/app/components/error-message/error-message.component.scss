@@ -1,0 +1,23 @@
+.error {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+.error button {
+    padding: 12px;
+    background: #0b868f;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.error button:hover {
+  transform: scale(1.05);
+}
