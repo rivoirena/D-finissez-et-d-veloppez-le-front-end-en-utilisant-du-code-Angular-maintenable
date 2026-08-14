@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Metric, Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { Metric, Olympic, Participation, Country } from 'src/app/core/models/olympic.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,8 @@ export class OlympicService {
     ];
   }
 
-  getCountry(data: Olympic[], countryName: string): Olympic | undefined {
-    return data.find((olympic: Olympic) => olympic.country === countryName);
+  getCountry(data: Olympic[], countryID: number): Olympic | undefined {
+    return data.find((olympic: Olympic) => olympic.id === countryID);
   }
 
   getTotalMedalsByCountry(data: Olympic[]): number[] {
@@ -83,9 +83,10 @@ export class OlympicService {
     );
   }
 
-  getCountries(data: Olympic[]): string[] {
-    return data.map(
-      (olympic: Olympic) => olympic.country
-    );
+  getCountries(data: Olympic[]): Country[] {
+    return data.map(olympic => ({
+      id: olympic.id,
+      label: olympic.country
+    }));
   }
 }

@@ -14,3 +14,7 @@ export interface Metric {
   label: string;
   value: number | string;
 }
+export interface Country {
+  id: number;
+  label: string;
+}

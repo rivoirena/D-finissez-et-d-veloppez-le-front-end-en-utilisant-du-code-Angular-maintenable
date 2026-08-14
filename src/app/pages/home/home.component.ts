@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
-import { Metric, Olympic, Participation } from 'src/app/core/models/olympic.model';
+import { Metric, Olympic, Country } from 'src/app/core/models/olympic.model';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public countries: string[] = [];
+  public countries: Country[] = [];
   public sumOfAllMedalsYears: number[] = [];
   public metrics: Metric[] = [];
   public loading: boolean = true;

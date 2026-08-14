@@ -23,7 +23,7 @@ export class CountryComponent implements OnInit {
   }
 
   ngOnInit() {
-    const countryName = this.route.snapshot.paramMap.get('countryName');
+    const countryID = Number(this.route.snapshot.paramMap.get('id'));
     this.olympicService.getOlympics().subscribe({
       next: (data: Olympic[]) => {
         this.loading = false;
@@ -34,7 +34,7 @@ export class CountryComponent implements OnInit {
           return;
         }
 
-        const selectedCountry = this.olympicService.getCountry(data, countryName ?? '');
+        const selectedCountry = this.olympicService.getCountry(data, countryID);
         if (!selectedCountry) {
           this.router.navigate(['not-found']);
           return;
