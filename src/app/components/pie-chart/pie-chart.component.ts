@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
+import { Country } from 'src/app/core/models/olympic.model';
 
 @Component({
   selector: 'app-pie-chart',
@@ -11,7 +12,7 @@ import Chart from 'chart.js/auto';
 })
 export class PieChartComponent {
   public pieChart!: Chart<"pie", number[], string>;
-  @Input() countries: string[] = [];
+  @Input() countries: Country[] = [];
   @Input() sumOfAllMedalsYears: number[] = [];
 
   constructor(private router: Router) {}
@@ -22,11 +23,12 @@ export class PieChartComponent {
     }
   }
 
-  buildPieChart(countries: string[], sumOfAllMedalsYears: number[]) {
+  buildPieChart(countries: Country[], sumOfAllMedalsYears: number[]) {
+    const labels = countries.map(country => country.label);
     const pieChart = new Chart("DashboardPieChart", {
       type: 'pie',
       data: {
-        labels: countries,
+        labels: labels,
         datasets: [{
           label: '🏅',
           data: sumOfAllMedalsYears,
@@ -67,7 +69,8 @@ export class PieChartComponent {
             if (points.length) {
               const firstPoint = points[0];
               const countryName = pieChart.data.labels ? pieChart.data.labels[firstPoint.index] : '';
-              this.router.navigate(['country', countryName]);
+              const countryID = this.countries[firstPoint.index].id;
+              this.router.navigate(['country', countryID]);
             }
           }
         }
