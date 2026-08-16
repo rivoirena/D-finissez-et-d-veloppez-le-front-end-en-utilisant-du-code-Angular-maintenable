@@ -63,6 +63,14 @@ Affiche le graphique de la page Home
 
 Il représente la répartition du nombre de médailles obtenues par les différents pays.
 
+## Loading
+Affiche le spinner de chargement de la page
+
+## ErrorMessage
+Affiche les messages d'erreurs :
+    - Aucune données disponibles
+    - Erreur lors du chargement des données
+
 
 # Services
 
