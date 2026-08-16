@@ -1,23 +1,26 @@
 
 # Architecture
 
-src
-├───app
-│   ├───components
-│   │   ├───line-chart
-│   │   ├───metrics
-│   │   ├───pie-chart
-│   │   └───title
-│   ├───core
-│   │   ├───models
-│   │   └───services
-│   └───pages
-│       ├───country
-│       ├───home
-│       └───not-found
-└────assets
-    ├───images
-    └───mock
+src/
+├── app/
+│   ├── components/
+│   │   ├── line-chart/
+│   │   ├── metrics/
+│   │   ├── pie-chart/
+│   │   └── title/
+│   │
+│   ├── core/
+│   │   ├── models/
+│   │   └── services/
+│   │
+│   └── pages/
+│       ├── country/
+│       ├── home/
+│       └── not-found/
+│
+└── assets/
+    ├── images/
+    └── mock/
 
 L'application est organisée en plusieurs parties afin de séparer les pages, les composants réutilisables, les modèles de données et la gestion des données.
 
